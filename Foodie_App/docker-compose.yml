@@ -1,0 +1,127 @@
+version: "3.5"
+
+services:
+  mysqlservice:
+    image: mysql:5.5
+    ports:
+      - 3306:3306
+    container_name: mysql-container
+    network_mode: host
+    hostname: localhost
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: password@123
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  mongodbservice:
+    image: mongo:latest
+    container_name: mongo-container
+    network_mode: host
+    hostname: localhost
+    ports:
+      - 27017:27017
+
+  userauthenticationservice:
+    container_name: user-authentication-service
+    build: UserAuthentication/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8081:8081
+    depends_on:
+      - mysqlservice
+      - cloudapiservice
+    restart: always
+
+  search-service:
+    container_name: search-service
+    build: Search/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  order-service:
+    container_name: order-service
+    build: OrderService/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8082:8082
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  feedback-service:
+    container_name: feedback-service
+    build: FeedBackService/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8085:8085
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  favourite-service:
+    container_name: favourite-service
+    build: Favourite/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8084:8084
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  admin-service:
+    container_name: admin-service
+    build: Admin/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8087:8087
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  restaurant-service:
+    container_name: restaurant-service
+    build: RestaurantService/
+    hostname: localhost
+    network_mode: host
+    ports:
+      - 8088:8088
+    depends_on:
+      - mongodbservice
+      - cloudapiservice
+    restart: always
+
+  cloudapiservice:
+    image: spring-cloud-api-gateway
+    build: SpringCloudAPIGateway/
+    restart: always
+    network_mode: host
+    #hostname: localhost
+    ports:
+      - 9000:9000
+    environment:
+      API_GATEWAY_PORT: 9000
+  eurekaServer:
+    image: eureka-service
+    build: EurekaServer/
+    restart: always
+    network_mode: host
+    environment:
+      EUREKA_SERVER_PORT: 8761
+    ports:
+      - 8761:8761

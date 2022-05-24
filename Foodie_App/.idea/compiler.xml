@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="FeedBackService" />
+        <module name="EurekaServer" />
+        <module name="SpringCloudApiGateway" />
+        <module name="Search" />
+        <module name="CartService" />
+        <module name="RestaurantService" />
+        <module name="UserAuthentication" />
+        <module name="OrderService" />
+        <module name="Admin" />
+        <module name="Favourite" />
+        <module name="Notification" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Admin" options="-parameters" />
+      <module name="CartService" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
+      <module name="Favourite" options="-parameters" />
+      <module name="FeedBackService" options="-parameters" />
+      <module name="Notification" options="-parameters" />
+      <module name="OrderService" options="-parameters" />
+      <module name="RestaurantService" options="-parameters" />
+      <module name="Search" options="-parameters" />
+      <module name="SpringCloudApiGateway" options="-parameters" />
+      <module name="UserAuthentication" options="-parameters" />
+    </option>
+  </component>
+</project>
